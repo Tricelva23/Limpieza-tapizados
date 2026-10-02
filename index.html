@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limpieza de Tapizados - Catálogo y Reservas</title>
+  
+  <!-- Tipografías de Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Iconos FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    /* RESETEO Y VARIABLES DE COLOR */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary-cyan: #00B4D8;       
+      --primary-dark: #0077B6;       
+      --soft-bg: #F0F9FF;            
+      --card-bg: #FFFFFF;            
+      --accent-orange: #F4A261;      
+      --accent-red: #E76F51;         
+      --accent-purple: #7209B7;      
+      --text-main: #2B2D42;          
+      --text-muted: #6C757D;         
+      --border-radius-lg: 20px;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: var(--soft-bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    h1, h2, h3, .tag-popular, .tag-promo, .btn-action {
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    /* ENCABEZADO */
+    .main-header {
+      background: linear-gradient(135deg, #00B4D8 0%, #0077B6 100%);
+      color: white;
+      text-align: center;
+      padding: 2.5rem 1rem 3.5rem 1rem;
+      border-bottom-left-radius: 35px;
+      border-bottom-right-radius: 35px;
+      box-shadow: 0 10px 25px rgba(0, 180, 216, 0.25);
+    }
+
+    .badge-top {
+      background-color: rgba(255, 255, 255, 0.25);
+      color: white;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-bottom: 0.8rem;
+    }
+
+    .main-header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    /* BANNER DE DOMICILIO */
+    .banner-container {
+      max-width: 850px;
+      margin: -25px auto 2rem auto;
+      padding: 0 1.2rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .banner-card {
+      background: white;
+      border: 2px solid var(--primary-cyan);
+      border-radius: var(--border-radius-lg);
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      box-shadow: 0 8px 20px rgba(0, 180, 216, 0.12);
+    }
+
+    .banner-icon {
+      font-size: 2rem;
+      color: var(--primary-cyan);
+      background: #E0F7FA;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .banner-info h2 {
+      font-size: 1.15rem;
+      color: var(--primary-dark);
+    }
+
+    .sub-note {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .catalog-container {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 0 1.2rem;
+    }
+
+    .title-section {
+      text-align: center;
+      font-size: 1.8rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.3rem;
+    }
+
+    .subtitle-section {
+      text-align: center;
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .promos-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .promos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .promo-card {
+      background: #FFFFFF;
+      border-radius: var(--border-radius-lg);
+      border: 2px solid var(--accent-orange);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 20px rgba(244, 162, 97, 0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .promo-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .promo-card.best-seller {
+      border: 2.5px solid var(--accent-red);
+    }
+
+    .promo-card.comfort-pack {
+      border: 2px solid var(--accent-purple);
+    }
+
+    .promo-img-banner {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      background-color: #E0F7FA;
+    }
+
+    .promo-body {
+      padding: 1.2rem 1.5rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .tag-promo {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background-color: var(--accent-orange);
+      color: white;
+      padding: 0.3rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      z-index: 5;
+    }
+
+    .tag-promo.red { background-color: var(--accent-red); }
+    .tag-promo.purple { background-color: var(--accent-purple); }
+
+    .promo-header h3 {
+      font-size: 1.25rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .promo-includes {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 0.8rem;
+      background: #FFF3E0;
+      padding: 0.5rem 0.8rem;
+      border-radius: 10px;
+    }
+
+    .comfort-pack .promo-includes {
+      background: #F3E5F5;
+    }
+
+    .promo-gancho {
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+    }
+
+    .price-breakdown {
+      list-style: none;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .price-breakdown li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.2rem;
+    }
+
+    .promo-price-box {
+      background: #E0F7FA;
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      text-align: center;
+      margin-bottom: 1.2rem;
+      border: 1px dashed var(--primary-cyan);
+    }
+
+    .promo-price-box .deal-price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      font-family: 'Fredoka', sans-serif;
+      display: block;
+    }
+
+    .promo-price-box .savings {
+      font-size: 0.85rem;
+      color: #D81B60;
+      font-weight: 700;
+    }
+
+    /* SECCIÓN DE CONSULTA INDIVIDUAL / PRESUPUESTO */
+    .custom-quote-section {
+      background: linear-gradient(135deg, #E0F7FA 0%, #E1F5FE 100%);
+      border: 2px dashed var(--primary-cyan);
+      border-radius: var(--border-radius-lg);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      margin-top: 3rem;
+      box-shadow: 0 8px 20px rgba(0, 180, 216, 0.08);
+    }
+
+    .custom-quote-section h3 {
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.6rem;
+    }
+
+    .custom-quote-section p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 1.5rem auto;
+    }
+
+    .btn-quote {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: #25D366;
+      color: white;
+      text-decoration: none;
+      padding: 0.9rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .btn-quote:hover {
+      transform: translateY(-2px);
+      background-color: #22bf5b;
+    }
+
+    /* BOTONES */
+    .btn-action {
+      background-color: var(--primary-dark);
+      color: white;
+      border: none;
+      padding: 0.7rem 1rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin-top: auto;
+      transition: background 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background-color: var(--primary-cyan);
+    }
+
+    /* CARRITO Y CALENDARIO MODAL */
+    .cart-float-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25D366;
+      color: white;
+      padding: 1rem 1.4rem;
+      border-radius: 50px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      cursor: pointer;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+
+    .cart-badge {
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.85rem;
+    }
+
+    .cart-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cart-content {
+      background: white;
+      padding: 1.8rem;
+      border-radius: var(--border-radius-lg);
+      width: 90%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      padding: 0.6rem 0;
+    }
+
+    .btn-remove {
+      color: red;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .calendar-box {
+      margin-top: 1.5rem;
+      background: #F0F9FF;
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid #B3E5FC;
+    }
+
+    .calendar-box label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--primary-dark);
+      font-size: 0.9rem;
+    }
+
+    .calendar-box input, .calendar-box select {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: 1px solid #CCC;
+      margin-bottom: 0.8rem;
+    }
+
+    /* FOOTER */
+    .main-footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: var(--primary-dark);
+      color: white;
+      margin-top: 3.5rem;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Encabezado Principal -->
+  <header class="main-header">
+    <div class="header-content">
+      <span class="badge-top">✨ ¡Deja tus muebles impecables!</span>
+      <h1>Limpieza de Tapizados</h1>
+      <p>Servicio profesional e higienización profunda a domicilio</p>
+    </div>
+  </header>
+
+  <!-- Banner Promocional -->
+  <section class="banner-container">
+    <div class="banner-card">
+      <div class="banner-icon"><i class="fas fa-truck-pickup"></i></div>
+      <div class="banner-info">
+        <h2>Servicio a Domicilio</h2>
+        <p>Monto mínimo de servicio: <strong>$1.500</strong></p>
+        <span class="sub-note">* Servicios menores a $1.500 tienen un adicional de <strong>$400 por traslado</strong>.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catálogo de Servicios -->
+  <main class="catalog-container">
+
+    <!-- SECCIÓN DE PROMOCIONES / COMBOS -->
+    <section class="promos-section">
+      <h2 class="title-section">🔥 Promociones "Juegos Completos"</h2>
+      <p class="subtitle-section">Aprovechá nuestros paquetes especiales y renová tus espacios</p>
+
+      <div class="promos-grid">
+
+        <!-- Combo 1 -->
+        <article class="promo-card best-seller">
+          <span class="tag-promo red">🔥 ¡El más vendido!</span>
+          <img src="combo1.jpg" alt="Combo 1: Comedor + Living Mediano" class="promo-img-banner" onerror="this.src='sillon.jpg'">
+          <div class="promo-body">
+            <div class="promo-header">
+              <h3>🌟 Combo 1: Comedor + Living Mediano</h3>
+            </div>
+            <div class="promo-includes">
+              <i class="fas fa-check-circle"></i> Incluye: Juego de 4 sillas + Sillón de 2 plazas
+            </div>
+            <p class="promo-gancho">"¡Dejá como nuevos el comedor y el living de tu casa en una sola visita!"</p>
+
+            <ul class="price-breakdown">
+              <li><span>4 Sillas + Sillón 2P</span> <span>$3.400</span></li>
+            </ul>
+
+            <div class="promo-price-box">
+              <span class="deal-price">$2.890</span>
+              <span class="savings">🎉 ¡Ahorrás $510!</span>
+            </div>
+
+            <button onclick="addToCart('Combo 1: Comedor + Living Mediano', 2890)" class="btn-action">
+              <i class="fas fa-cart-plus"></i> Agregar al Carrito
+            </button>
+          </div>
+        </article>
+
+        <!-- Combo 2 -->
+        <article class="promo-card">
+          <span class="tag-promo">🏡 Casa Familiar</span>
+          <img src="combo2.jpg" alt="Combo 2: Comedor Full + Living Mediano" class="promo-img-banner" onerror="this.src='silla.jpg'">
+          <div class="promo-body">
+            <div class="promo-header">
+              <h3>🌟 Combo 2: Comedor Full + Living Mediano</h3>
+            </div>
+            <div class="promo-includes">
+              <i class="fas fa-check-circle"></i> Incluye: Juego de 6 sillas + Sillón de 2 plazas
+            </div>
+            <p class="promo-gancho">"La solución ideal para la casa familiar. ¡Llegamos, limpiamos todo y renovás tus espacios!"</p>
+
+            <ul class="price-breakdown">
+              <li><span>6 Sillas + Sillón 2P</span> <span>$4.200</span></li>
+            </ul>
+
+            <div class="promo-price-box">
+              <span class="deal-price">$3.490</span>
+              <span class="savings">🎉 ¡Ahorrás $710!</span>
+            </div>
+
+            <button onclick="addToCart('Combo 2: Comedor Full + Living Mediano', 3490)" class="btn-action">
+              <i class="fas fa-cart-plus"></i> Agregar al Carrito
+            </button>
+          </div>
+        </article>
+
+        <!-- Combo 3 -->
+        <article class="promo-card">
+          <span class="tag-promo">✨ Limpieza Integral</span>
+          <img src="combo3.jpg" alt="Combo 3: Gran Comedor + Living Grande" class="promo-img-banner" onerror="this.src='sillon.jpg'">
+          <div class="promo-body">
+            <div class="promo-header">
+              <h3>🌟 Combo 3: Gran Comedor + Living Grande</h3>
+            </div>
+            <div class="promo-includes">
+              <i class="fas fa-check-circle"></i> Incluye: Juego de 6 sillas + Sillón de 3 plazas
+            </div>
+            <p class="promo-gancho">"Limpieza profunda integral para hogares amplios."</p>
+
+            <ul class="price-breakdown">
+              <li><span>6 Sillas + Sillón 3P</span> <span>$4.900</span></li>
+            </ul>
+
+            <div class="promo-price-box">
+              <span class="deal-price">$3.990</span>
+              <span class="savings">🎉 ¡Ahorrás $910!</span>
+            </div>
+
+            <button onclick="addToCart('Combo 3: Gran Comedor + Living Grande', 3990)" class="btn-action">
+              <i class="fas fa-cart-plus"></i> Agregar al Carrito
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE PACKS CONFORT & DESCANSO -->
+    <section class="promos-section">
+      <h2 class="title-section">🛏 Packs "Confort & Descanso"</h2>
+      <p class="subtitle-section">Combina la higienización de tu sillón y tu colchón para un descanso libre de ácaros</p>
+
+      <div class="promos-grid">
+
+        <!-- Pack 2 -->
+        <article class="promo-card comfort-pack best-seller">
+          <span class="tag-promo red">⭐ ¡El más vendido!</span>
+          <img src="pack2.jpg" alt="Pack 2: Hogar Confort" class="promo-img-banner" onerror="this.src='colchon.jpg'">
+          <div class="promo-body">
+            <div class="promo-header">
+              <h3>🌟 Pack 2: "Hogar Confort"</h3>
+            </div>
+            <div class="promo-includes">
+              <i class="fas fa-bed"></i> Incluye: Sillón de 2 plazas + Colchón de 2 plazas
+            </div>
+            <p class="promo-gancho">"¡Higiene total donde más tiempo pasás: tu living y tu dormitorio!"</p>
+
+            <ul class="price-breakdown">
+              <li><span>Sillón 2P + Colchón 2P</span> <span>$3.800</span></li>
+            </ul>
+
+            <div class="promo-price-box">
+              <span class="deal-price">$3.190</span>
+              <span class="savings">🎉 ¡Ahorrás $610!</span>
+            </div>
+
+            <button onclick="addToCart('Pack 2: Hogar Confort (Sillón 2P + Colchón 2P)', 3190)" class="btn-action">
+              <i class="fas fa-cart-plus"></i> Agregar al Carrito
+            </button>
+          </div>
+        </article>
+
+        <!-- Pack 3 -->
+        <article class="promo-card comfort-pack">
+          <span class="tag-promo purple">👑 Gran Tamaño</span>
+          <img src="pack3.jpg" alt="Pack 3: Full Confort & Descanso" class="promo-img-banner" onerror="this.src='colchon.jpg'">
+          <div class="promo-body">
+            <div class="promo-header">
+              <h3>🌟 Pack 3: "Full Confort & Descanso"</h3>
+            </div>
+            <div class="promo-includes">
+              <i class="fas fa-bed"></i> Incluye: Sillón de 3 plazas + Colchón King (o 2 plazas)
+            </div>
+            <p class="promo-gancho">"Limpieza profunda antiácaros para los muebles más grandes de la casa."</p>
+
+            <ul class="price-breakdown">
+              <li><span>Sillón 3P + Colchón King/2P</span> <span>$5.000</span></li>
+            </ul>
+
+            <div class="promo-price-box">
+              <span class="deal-price">$4.190</span>
+              <span class="savings">🎉 ¡Ahorrás $810!</span>
+            </div>
+
+            <button onclick="addToCart('Pack 3: Full Confort (Sillón 3P + Colchón King/2P)', 4190)" class="btn-action">
+              <i class="fas fa-cart-plus"></i> Agregar al Carrito
+            </button>
+          </div>
+        </article>
+
+        <!-- Pack Extra -->
+        <article class="promo-card comfort-pack">
+          <span class="tag-promo purple">🏡 Renovación Completa</span>
+          <img src="pack-extra.jpg" alt="Pack Extra: Renovación Total" class="promo-img-banner" onerror="this.src='sillon.jpg'">
+          <div class="promo-body">
+            <div class="promo-header">
+              <h3>🌟 Pack Extra: "Renovación Total"</h3>
+            </div>
+            <div class="promo-includes">
+              <i class="fas fa-home"></i> Incluye: Sillón 2 plazas + Colchón 2 plazas + 4 Sillas
+            </div>
+            <p class="promo-gancho">"¡Limpieza integral de la casa en un solo día!"</p>
+
+            <ul class="price-breakdown">
+              <li><span>Sillón 2P + Colchón 2P + 4 Sillas</span> <span>$5.400</span></li>
+            </ul>
+
+            <div class="promo-price-box">
+              <span class="deal-price">$4.500</span>
+              <span class="savings">🎉 ¡Ahorrás $900!</span>
+            </div>
+
+            <button onclick="addToCart('Pack Extra: Renovación Total (Sillón 2P + Colchón 2P + 4 Sillas)', 4500)" class="btn-action">
+              <i class="fas fa-cart-plus"></i> Agregar al Carrito
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE CONSULTA DE PRESUPUESTO INDIVIDUAL -->
+    <div class="custom-quote-section">
+      <h3>🛋 ¿Necesitás limpiar un mueble o artículo individual?</h3>
+      <p>Si querés higienizar un sillón suelto, sillas por separado, colchones, tapizados de auto o cualquier otro artículo, consultanos directamente y te armamos un presupuesto a medida.</p>
+      <a href="https://wa.me/59891844420?text=Hola!%20Quisiera%20consultar%20presupuesto%20para%20un%20servicio%20individual%20de%20limpieza%20de%20tapizados." target="_blank" class="btn-quote">
+        <i class="fab fa-whatsapp"></i> Consultar Presupuesto Individual
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Botón Flotante del Carrito -->
+  <div class="cart-float-btn" onclick="toggleCart()">
+    <i class="fas fa-shopping-cart"></i>
+    <span>Ver Agenda y Carrito</span>
+    <span class="cart-badge" id="cart-count">0</span>
+  </div>
+
+  <!-- Modal del Carrito y Agendamiento -->
+  <div class="cart-modal" id="cart-modal">
+    <div class="cart-content">
+      <h2 style="color: var(--primary-dark); margin-bottom: 1rem;"><i class="fas fa-calendar-alt"></i> Resumen de Reserva</h2>
+      
+      <div id="cart-items-container">
+        <p style="color: var(--text-muted);">Tu carrito está vacío. Agrega servicios para comenzar.</p>
+      </div>
+
+      <div style="margin-top: 1rem; text-align: right; font-weight: 700; font-size: 1.2rem; color: var(--primary-dark);">
+        Total: $<span id="cart-total">0</span>
+      </div>
+
+      <!-- Selector de Fecha y Horario -->
+      <div class="calendar-box">
+        <label for="booking-date"><i class="far fa-calendar-check"></i> Selecciona la Fecha deseada:</label>
+        <input type="date" id="booking-date">
+
+        <label for="booking-time"><i class="far fa-clock"></i> Selecciona el Horario preferido:</label>
+        <select id="booking-time">
+          <option value="Turno Mañana (09:00 - 13:00 hs)">Turno Mañana (09:00 a 13:00 hs)</option>
+          <option value="Turno Tarde (14:00 - 18:00 hs)">Turno Tarde (14:00 a 18:00 hs)</option>
+        </select>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 1.5rem;">
+        <button onclick="toggleCart()" class="btn-action" style="background: #6C757D;">Cerrar</button>
+        <button onclick="sendToWhatsApp()" class="btn-action" style="background: #25D366;"><i class="fab fa-whatsapp"></i> Confirmar por WhatsApp</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie de página -->
+  <footer class="main-footer">
+    <p>&copy; 2026 Limpieza Profesional de Tapizados &bull; Frescura e higiene garantizada</p>
+  </footer>
+
+  <!-- LÓGICA JAVASCRIPT DEL CARRITO Y AGENDA -->
+  <script>
+    let cart = [];
+    const phoneNumber = "59891844420";
+
+    // Configurar fecha mínima (hoy) en el calendario
+    const dateInput = document.getElementById('booking-date');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.min = today;
+    dateInput.value = today;
+
+    function addToCart(title, price) {
+      cart.push({ title, price });
+      updateCartUI();
+      alert(`¡Agregado!: ${title}`);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const container = document.getElementById('cart-items-container');
+      const countLabel = document.getElementById('cart-count');
+      const totalLabel = document.getElementById('cart-total');
+
+      countLabel.textContent = cart.length;
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-muted);">Tu carrito está vacío. Agrega servicios para comenzar.</p>';
+        totalLabel.textContent = '0';
+        return;
+      }
+
+      let html = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        total += item.price;
+        html += `
+          <div class="cart-item">
+            <div>
+              <strong>${item.title}</strong><br>
+              <small style="color: var(--text-muted);">$${item.price}</small>
+            </div>
+            <button onclick="removeFromCart(${index})" class="btn-remove"><i class="fas fa-trash"></i></button>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      totalLabel.textContent = total;
+    }
+
+    function toggleCart() {
+      const modal = document.getElementById('cart-modal');
+      modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    function sendToWhatsApp() {
+      if (cart.length === 0) {
+        alert("Por favor agrega al menos un servicio a tu carrito antes de agendar.");
+        return;
+      }
+
+      const selectedDate = document.getElementById('booking-date').value;
+      const selectedTime = document.getElementById('booking-time').value;
+
+      if (!selectedDate) {
+        alert("Por favor selecciona una fecha para la visita.");
+        return;
+      }
+
+      let total = cart.reduce((sum, item) => sum + item.price, 0);
+
+      let text = `¡Hola! Quisiera agendar un servicio de limpieza a domicilio:\n\n`;
+      text += `📋 *Servicios seleccionados:*\n`;
+      cart.forEach((item) => {
+        text += `• ${item.title} ($${item.price})\n`;
+      });
+
+      text += `\n💰 *Monto Estimado:* $${total}\n`;
+      text += `📅 *Fecha solicitada:* ${selectedDate}\n`;
+      text += `⏰ *Horario preferido:* ${selectedTime}\n\n`;
+      text += `¿Tienen disponibilidad para coordinar esa fecha?`;
+
+      const encodedText = encodeURIComponent(text);
+      window.open(`https://wa.me/${phoneNumber}?text=${encodedText}`, '_blank');
+    }
+  </script>
+
+</body>
+</html>
